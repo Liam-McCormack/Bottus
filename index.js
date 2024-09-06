@@ -13,10 +13,10 @@ const hook = new Webhook(process.env.DISCORD);
 const delay = Math.floor(Math.random() * 5) + 1;
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const targetEventURL = "https://www.twickets.live/en/event/1828748567179698176#sort=FirstListed&typeFilter=Any&qFilter=All";
-// const targetEventURL = "https://www.twickets.live/en/event/1796529798533615616#sort=FirstListed&typeFilter=Any&qFilter=All";
+// const targetEventURL = "https://www.twickets.live/en/event/1828748567179698176#sort=FirstListed&typeFilter=Any&qFilter=All";
+const targetEventURL = "https://www.twickets.live/en/event/1796529798533615616#sort=FirstListed&typeFilter=Any&qFilter=All";
 
-const updateDiscord = async (page, message, file) => {
+const updateDiscord = async (file, page, message) => {
   try {
     await page.screenshot({ path: "./screenshots/" + file }, { fullPage: true });
     console.log(message)
@@ -79,7 +79,7 @@ const bottus = async () => {
         console.log("Buy button found! Tickets are available. Alerting Bottus!");
         // await page.screenshot({path: "tickets/available.png"})
 
-        await updateDiscord(page, `TICKETS AVAILABLE! ${priceString}`, 'available.png');
+        await updateDiscord('available.png', page, `@everyone TICKETS AVAILABLE! ${priceString} BUY HERE - ${targetEventURL}`);
       }        
     } catch (error) {
       // Handle errors, especially TimeoutError when the selector is not found
