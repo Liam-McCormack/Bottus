@@ -18,10 +18,10 @@ const targetEventURL = "https://www.twickets.live/en/event/1796529798533615616#s
 
 const updateDiscord = async (file, page, message) => {
   try {
-    await page.screenshot({ path: "./screenshots/" + file }, { fullPage: true });
+    await page.screenshot({ path: "./tmp/" + file }, { fullPage: true });
     console.log(message)
     hook.send(message);
-    hook.sendFile("./screenshots/" + file);
+    hook.sendFile("./tmp/" + file);
   } catch (e) {
     console.log(e)
     process.exit(0)
@@ -37,7 +37,7 @@ const bottus = async () => {
   const checkTickets = async () => {
     const browser = await puppeteer.launch({
       ignoreHTTPSErrors: true,
-      headless: false, // Set to false if you want to see the browser
+      headless: true, // Set to false if you want to see the browser
     });
 
     const page = await browser.newPage();
@@ -101,3 +101,5 @@ const bottus = async () => {
 bottus().catch((error) => {
   console.error("Error executing main function:", error);
 });
+
+export const handler = bottus;
